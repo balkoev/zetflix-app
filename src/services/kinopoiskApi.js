@@ -24,7 +24,6 @@ export const kinopoiskApi = createApi({
 
     getFilms: builder.query({
       query: ({ searchQuery, countryId, genreId, topType, page }) => {
-        console.log(page);
         // Get Films by Search
         if (searchQuery) {
           return `/v2.2/films?type=FILM&order=NUM_VOTE&keyword=${searchQuery}&page=${page}`;
