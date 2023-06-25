@@ -168,11 +168,9 @@ function MovieInfo() {
           </div>
         </Grid>
       </Grid>
-      <Box>
-        <h1>Смотреть онлайн</h1>
-        <div data-kinopoisk={id} id="kinobd" />
-        <script src="https://kinobd.ru/js/player_.js" />
-      </Box>
+      <h1>Смотреть онлайн</h1>
+      <div data-kinopoisk={id} id="kinobd" style={{ width: '100%', height: '370px', border: 0, margin: 0, padding: 0, overflow: 'hidden', position: 'relative' }} />
+      <script src="https://kinobd.ru/js/player_.js" />
       {/* <Box marginTop="5rem" width="100%">
         <Typography variant="h3" gutterBottom align="center">
           You might also like
