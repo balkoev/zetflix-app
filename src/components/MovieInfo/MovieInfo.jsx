@@ -2,14 +2,11 @@ import React from 'react';
 import { Typography, Button, ButtonGroup, Grid, Box, CircularProgress, Rating } from '@mui/material';
 import { Movie as MovieIcon, Language } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
-
-import useStyles from './styles';
 import { useGetActorsByFilmQuery, useGetFilmQuery,
 } from '../../services/kinopoiskApi';
 import genreIcons from '../../assets/genres';
 
 function MovieInfo() {
-  const classes = useStyles();
   const { id } = useParams();
 
   const { data, error, isFetching } = useGetFilmQuery(id);
@@ -32,11 +29,22 @@ function MovieInfo() {
   }
 
   return (
-    <Grid container className={classes.containerSpaceAround}>
+    <Grid
+      container
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        margin: '10px 0 !important',
+      }}
+    >
       <Grid item sm={12} lg={4} align="center">
         <img
           src={data.posterUrlPreview}
-          className={classes.poster}
+          sx={{
+            borderRadius: '20px',
+            boxShadow: '0.5em 1em 1em rgb(64, 64, 70)',
+            width: '80%',
+          }}
           alt={data?.title}
         />
       </Grid>
@@ -47,7 +55,14 @@ function MovieInfo() {
         <Typography variant="h5" align="center" gutterBottom>
           {data?.tagline}
         </Typography>
-        <Grid item className={classes.containerSpaceAround}>
+        <Grid
+          item
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            margin: '10px 0 !important',
+          }}
+        >
           <Box display="flex" align="center">
             <Rating readOnly value={data.ratingKinopoisk / 2} />
             <Typography gutterBottom variant="subtitle1" style={{ marginLeft: '10px' }}>
@@ -56,10 +71,32 @@ function MovieInfo() {
           </Box>
           <Typography gutterBottom variant="h6" align="center">{data?.filmLength}min</Typography>
         </Grid>
-        <Grid item className={classes.genresContainer}>
+        <Grid
+          item
+          sx={{
+            margin: '10px 0 !imaportant',
+            display: 'flex',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
+          }}
+        >
           {data?.genres?.map(({ genre }) => (
-            <div className={classes.links} key={genre}>
-              <img src={genreIcons[genre.toLowerCase()]} className={classes.genreImage} height={30} />
+            <div
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textDecoration: 'none',
+              }}
+              key={genre}
+            >
+              <img
+                src={genreIcons[genre.toLowerCase()]}
+                sx={{
+                  marginRight: '10px',
+                }}
+                height={30}
+              />
               <Typography color="textPrimary" variant="subtitle1">{genre}</Typography>
             </div>
           ))}
@@ -72,7 +109,13 @@ function MovieInfo() {
 
             <Grid key={i} item xs={4} md={2} component={Link} to={`/actors/${actor.staffId}`} style={{ textDecoration: 'none' }}>
               <img
-                className={classes.castImage}
+                sx={{
+                  width: '100%',
+                  maxWidth: '7em',
+                  height: '8em',
+                  objectFit: 'cover',
+                  borderRadius: '10px',
+                }}
                 src={actor.posterUrl}
                 alt={actor.nameRu}
               />
@@ -85,8 +128,22 @@ function MovieInfo() {
           )).slice(0, 6)}
         </Grid>
         <Grid item container style={{ marginTop: '2rem' }}>
-          <div className={classes.buttonContainer}>
-            <Grid item xs={12} sm={6} className={classes.buttonContainer}>
+          <div sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+          >
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+              }}
+            >
               <ButtonGroup size="small" variant="outlined">
                 <Button target="_blank" rel="noopener noreferrer" href={data?.webUrl} endIcon={<Language />}>Website</Button>
                 <Button target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data?.imdbId}`} endIcon={<MovieIcon />}>IMDB</Button>

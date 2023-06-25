@@ -10,7 +10,6 @@ function Movies() {
   const { genreId, topType, searchQuery } = useSelector((state) => state.currentGenre);
   const { data, error, isFetching } = useGetFilmsQuery({ genreId, topType, page, searchQuery });
 
-  console.log(data);
   const lg = useMediaQuery((theme) => theme.breakpoints.only('lg'));
   const numberOfMovies = lg ? 17 : 19;
 

@@ -5,13 +5,13 @@ import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import useStyles from './styles';
-import { Search, Sidebar } from '../index';
+// import useStyles from './styles';
+// import { Search, Sidebar } from '../index';
 // import { setUser } from '../../features/auth';
 import { ColorModeContext } from '../../utils/ToggleColorMode';
 
 function Navbar() {
-  const classes = useStyles();
+  // const classes = useStyles();
   const isMobile = useMediaQuery('(max-width:600px)');
   const theme = useTheme();
   // const dispatch = useDispatch();
@@ -43,14 +43,29 @@ function Navbar() {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar className={classes.toolbar}>
+        <Toolbar sx={{
+          height: '80px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginLeft: '240px',
+          [theme.breakpoints.down('sm')]: {
+            marginLeft: 0,
+            flexWrap: 'wrap',
+          },
+        }}
+        >
           {isMobile && (
           <IconButton
             color="inherit"
             edge="start"
             style={{ outline: 'none' }}
             onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-            className={classes.menuButton}
+            sx={{
+              marginRight: theme.spacing(2),
+              [theme.breakpoints.up('sm')]: {
+                display: 'none',
+              },
+            }}
           >
             <Menu />
           </IconButton>
@@ -62,7 +77,7 @@ function Navbar() {
           >
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
-          {!isMobile && <Search />}
+          {/* {!isMobile && <Search />} */}
           <div>
             {!isAuthenticated ? (
               <Button color="inherit">
@@ -73,7 +88,12 @@ function Navbar() {
                 color="inherit"
                 component={Link}
                 to={`/profile/${user.id}`}
-                className={classes.linkButton}
+                sx={{
+                  '&:hover': {
+                    color: 'white !important',
+                    textDecoration: 'none',
+                  },
+                }}
               >
                 {!isMobile && <>My Movies &nbsp;</>}
                 <Avatar
@@ -84,25 +104,39 @@ function Navbar() {
               </Button>
             )}
           </div>
-          {isMobile && <Search />}
+          {/* {isMobile && <Search />} */}
         </Toolbar>
       </AppBar>
       <div>
-        <nav className={classes.drawer}>
+        <nav sx={{
+          [theme.breakpoints.up('sm')]: {
+            width: 240,
+            flexShrink: 0,
+          },
+        }}
+        >
           {isMobile ? (
             <Drawer
               variant="temporary"
               anchor="left"
               open={mobileOpen}
               onClose={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-              classes={{ paper: classes.drawerPaper }}
+              classes={{ paper: {
+                width: 240,
+              } }}
               ModalProps={{ keepMounted: true }}
             >
-              <Sidebar setMobileOpen={setMobileOpen} />
+              {/* <Sidebar setMobileOpen={setMobileOpen} /> */}
             </Drawer>
           ) : (
-            <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
-              <Sidebar setMobileOpen={setMobileOpen} />
+            <Drawer
+              classes={{ paper: {
+                width: 240,
+              } }}
+              variant="permanent"
+              open
+            >
+              {/* <Sidebar setMobileOpen={setMobileOpen} /> */}
             </Drawer>
           )}
         </nav>
