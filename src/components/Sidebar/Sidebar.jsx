@@ -33,7 +33,7 @@ function Sidebar({ setMobileOpen }) {
     <>
       <Link to="/">
         <img
-          sx={{
+          style={{
             width: '70%',
           }}
           src={theme.palette.mode === 'light' ? blueLogo : redLogo}

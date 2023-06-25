@@ -12,15 +12,15 @@ import {
 
 function App() {
   return (
-    <div sx={{ display: 'flex',
+    <div style={{ display: 'flex',
       height: '100%' }}
     >
       <CssBaseline />
       <Navbar />
-      <main sx={{ flexGrow: 1,
+      <main style={{ flexGrow: 1,
         padding: '6em 2em 2em' }}
       >
-        <div sx={{
+        <div style={{
           height: '70px',
         }}
         />

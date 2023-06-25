@@ -42,7 +42,7 @@ function Movie({ movie, i }) {
           <img
             src={movie.posterUrlPreview}
             alt={movie.title}
-            sx={{
+            style={{
               borderRadius: '20px',
               height: '300px',
               marginBottom: '10px',

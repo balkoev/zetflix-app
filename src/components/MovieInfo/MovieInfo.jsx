@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Typography, Button, ButtonGroup, Grid, Box, CircularProgress, Rating } from '@mui/material';
 import { Movie as MovieIcon, Language } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
 import { useGetActorsByFilmQuery, useGetFilmQuery,
 } from '../../services/kinopoiskApi';
 import genreIcons from '../../assets/genres';
+import useIsIFrameLoaded from '../../hooks/useIsIFrameLoaded';
 
 function MovieInfo() {
   const { id } = useParams();
 
   const { data, error, isFetching } = useGetFilmQuery(id);
   const actorsByFilm = useGetActorsByFilmQuery(id);
+  const iframeRef = useRef(null);
+
+  const isReady = useIsIFrameLoaded(iframeRef);
 
   if (isFetching) {
     return (
@@ -40,7 +44,7 @@ function MovieInfo() {
       <Grid item sm={12} lg={4} align="center">
         <img
           src={data.posterUrlPreview}
-          sx={{
+          style={{
             borderRadius: '20px',
             boxShadow: '0.5em 1em 1em rgb(64, 64, 70)',
             width: '80%',
@@ -82,7 +86,7 @@ function MovieInfo() {
         >
           {data?.genres?.map(({ genre }) => (
             <div
-              sx={{
+              style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -92,7 +96,7 @@ function MovieInfo() {
             >
               <img
                 src={genreIcons[genre.toLowerCase()]}
-                sx={{
+                style={{
                   marginRight: '10px',
                 }}
                 height={30}
@@ -109,7 +113,7 @@ function MovieInfo() {
 
             <Grid key={i} item xs={4} md={2} component={Link} to={`/actors/${actor.staffId}`} style={{ textDecoration: 'none' }}>
               <img
-                sx={{
+                style={{
                   width: '100%',
                   maxWidth: '7em',
                   height: '8em',
@@ -128,7 +132,7 @@ function MovieInfo() {
           )).slice(0, 6)}
         </Grid>
         <Grid item container style={{ marginTop: '2rem' }}>
-          <div sx={{
+          <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
@@ -150,52 +154,14 @@ function MovieInfo() {
                 {/* <Button onClick={() => setOpen(true)} href="#" endIcon={<Theaters />}>Trailer</Button> */}
               </ButtonGroup>
             </Grid>
-            {/* <Grid item xs={12} sm={6} className={classes.buttonContainer}>
-              <ButtonGroup size="small" variant="outlined">
-                <Button onClick={(() => {})} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
-                  {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
-                </Button>
-                <Button onClick={() => {}} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
-                  Watchlist
-                </Button>
-                <Button endIcon={<ArrowBack />} sx={{ borderColor: 'primary.main' }}>
-                  <Typography variant="subtitle2" component={Link} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
-                    Back
-                  </Typography>
-                </Button>
-              </ButtonGroup>
-            </Grid> */}
           </div>
         </Grid>
       </Grid>
-      <h1>Смотреть онлайн</h1>
-      <div data-kinopoisk={id} id="kinobd" style={{ width: '100%', height: '370px', border: 0, margin: 0, padding: 0, overflow: 'hidden', position: 'relative' }} />
-      <script src="https://kinobd.ru/js/player_.js" />
-      {/* <Box marginTop="5rem" width="100%">
-        <Typography variant="h3" gutterBottom align="center">
-          You might also like
-        </Typography>
-        {recommendations
-          ? <MovieList movies={recommendations} numberOfMovies={12} />
-          : <Box>Sorry, nothing was found.</Box>}
-      </Box> */}
-      {/* <Modal
-        closeAfterTransition
-        className={classes.modal}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        {data?.videos?.results?.length > 0 && (
-          <iframe
-            autoPlay
-            className={classes.video}
-            frameBorder="0"
-            title="Trailer"
-            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
-            allow="autoplay"
-          />
-        )}
-      </Modal> */}
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+        <h1>Смотреть онлайн</h1>
+        <p>Is ready: {String(isReady)}</p>
+        <div ref={iframeRef} style={{ width: '600px' }} id="yohoho" data-kinopoisk={id} />
+      </div>
     </Grid>
   );
 }

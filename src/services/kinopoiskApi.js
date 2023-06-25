@@ -13,7 +13,6 @@ export const kinopoiskApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-
     // Get Genres and Countries
     getGenresAndCountries: builder.query({
       query: () => '/v2.2/films/filters',
@@ -25,6 +24,7 @@ export const kinopoiskApi = createApi({
 
     getFilms: builder.query({
       query: ({ searchQuery, countryId, genreId, topType, page }) => {
+        console.log(page);
         // Get Films by Search
         if (searchQuery) {
           return `/v2.2/films?type=FILM&order=NUM_VOTE&keyword=${searchQuery}&page=${page}`;
@@ -46,7 +46,7 @@ export const kinopoiskApi = createApi({
         }
 
         // Get popular films by default
-        return '/v2.2/films?type=FILM&order=NUM_VOTE&page=1';
+        return `/v2.2/films?type=FILM&order=NUM_VOTE&page=${page}`;
       },
       transformResponse: (response) => ({
         totalPages: response.totalPages ? response.totalPages : response.pagesCount,

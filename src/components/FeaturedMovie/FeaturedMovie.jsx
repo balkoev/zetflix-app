@@ -27,18 +27,21 @@ function FeaturedMovie({ movie }) {
           display: 'flex',
           justifyContent: 'flex-end',
           flexDirection: 'column',
+
         }}
-        // classes={{ root: classes.cardRoot }}
+        classes={{ root: {
+          position: 'relative',
+        } }}
       >
         <CardMedia
           media="picture"
           alt={movie.nameRu ? movie.nameRu : movie.nameOriginal}
           image={movie.posterUrl}
           title={movie.nameRu ? movie.nameRu : movie.nameOriginal}
-          className={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
+          sx={{
+            // position: 'absolute',
+            // top: 0,
+            // right: 0,
             height: '100%',
             width: '100%',
             backgroundColor: 'rgba(0,0,0,0.575)',
@@ -48,7 +51,7 @@ function FeaturedMovie({ movie }) {
         <Box padding="20px">
           <CardContent
             sx={{
-              color: '#fff',
+              color: '#00000',
               width: '40%',
 
             }}

@@ -108,7 +108,7 @@ function Navbar() {
         </Toolbar>
       </AppBar>
       <div>
-        <nav sx={{
+        <nav style={{
           [theme.breakpoints.up('sm')]: {
             width: 240,
             flexShrink: 0,
