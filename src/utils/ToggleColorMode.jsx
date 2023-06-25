@@ -17,6 +17,7 @@ function ToggleColorMode({ children }) {
   }), [mode]);
 
   return (
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ColorModeContext.Provider value={{ mode, setMode, toggleColorMode }}>
       <ThemeProvider theme={theme}>
         {children}

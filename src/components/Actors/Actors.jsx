@@ -56,7 +56,7 @@ function Actors() {
       <Box margin="2rem 0">
         <Typography variant="h2" gutterBottom align="center">Фильмы</Typography>
         {data?.films && <MovieList movies={{ items: data.films }} numberOfMovies={12} />}
-        {/* <Pagination currentPage={page} setPage={setPage} totalPages={data.films?.total_pages} /> */}
+        <Pagination currentPage={page} setPage={setPage} totalPages={data.films?.total_pages} />
       </Box>
     </>
   );
