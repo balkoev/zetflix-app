@@ -1,6 +1,7 @@
 import React from 'react';
 import { CssBaseline } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
+import 'bear-react-carousel/dist/index.css';
 
 import {
   Movies,
@@ -12,9 +13,7 @@ import {
 
 function App() {
   return (
-    <div style={{ display: 'flex',
-      height: '100%' }}
-    >
+    <>
       <CssBaseline />
       <Navbar />
       <main style={{ flexGrow: 1,
@@ -32,7 +31,7 @@ function App() {
           {/* <Route exact path="/profile/:id" element={<Profile />} /> */}
         </Routes>
       </main>
-    </div>
+    </>
   );
 }
 
