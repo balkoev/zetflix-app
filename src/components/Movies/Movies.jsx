@@ -9,8 +9,8 @@ import { useGetFilmsQuery } from '../../services/kinopoiskApi';
 function Movies() {
   const [page, setPage] = useState(1);
   const { genreId, topType, searchQuery } = useSelector((state) => state.currentGenre);
-  const { data2, error, isFetching } = useGetFilmsQuery({ genreId, topType, page, searchQuery });
-  const data = { items: [] };
+  const { data, error, isFetching } = useGetFilmsQuery({ genreId, topType, page, searchQuery });
+  // const data = { items: [] };
   const lg = useMediaQuery((theme) => theme.breakpoints.only('lg'));
   const numberOfMovies = lg ? 17 : 19;
 

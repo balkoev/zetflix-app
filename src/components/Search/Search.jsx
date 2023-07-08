@@ -40,7 +40,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Search = styled('div')(({ theme }) => ({
+const SearchWrapper = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -50,7 +50,7 @@ const Search = styled('div')(({ theme }) => ({
   marginLeft: 0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
+    margin: '0 auto',
     width: 'auto',
   },
 }));
@@ -74,18 +74,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
+      width: '30ch',
       '&:focus': {
-        width: '20ch',
+        width: '34ch',
       },
     },
   },
 }));
 
-function BasicSearch() {
-  
+function Search() {
   return (
-    <Search>
+    <SearchWrapper>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
@@ -93,8 +92,8 @@ function BasicSearch() {
         placeholder="Поиск…"
         inputProps={{ 'aria-label': 'search' }}
       />
-    </Search>
+    </SearchWrapper>
   );
 }
 
-export default BasicSearch;
+export default Search;

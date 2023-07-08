@@ -16,9 +16,10 @@ function ToggleColorMode({ children }) {
     },
   }), [mode]);
 
+  const contextData = useMemo(() => ({ mode, toggleColorMode }), [mode]);
+
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ColorModeContext.Provider value={{ mode, setMode, toggleColorMode }}>
+    <ColorModeContext.Provider value={contextData}>
       <ThemeProvider theme={theme}>
         {children}
       </ThemeProvider>

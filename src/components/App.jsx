@@ -1,6 +1,7 @@
 import React from 'react';
 import { CssBaseline } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
+// eslint-disable-next-line import/no-unresolved
 import 'bear-react-carousel/dist/index.css';
 
 import {
