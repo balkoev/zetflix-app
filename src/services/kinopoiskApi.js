@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const kinopoiskApiKey = process.env.REACT_APP_KINOPOISK_KEY;
-const excludeGenres = ['фильм-нуар', 'короткометражка', '', 'концерт', 'для взрослых', 'церемония', 'реальное ТВ', 'игра', 'ток-шоу', 'новости'];
+const excludeGenres = ['фильм-нуар', 'короткометражка', 'концерт', '', 'для взрослых', 'церемония', 'реальное ТВ', 'игра', 'ток-шоу', 'новости'];
 
 export const kinopoiskApi = createApi({
   reducerPath: 'kinopoiskApi',
@@ -13,30 +13,26 @@ export const kinopoiskApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // Get Genres and Countries
-    getGenresAndCountries: builder.query({
+    // Get Genres
+    getGenres: builder.query({
       query: () => '/v2.2/films/filters',
       transformResponse: (response) => ({
-        ...response,
         genres: response.genres.filter(({ genre }) => !excludeGenres.includes(genre)),
       }),
     }),
 
     getFilms: builder.query({
-      query: ({ searchQuery, countryId, genreId, topType, page }) => {
+      query: ({
+        searchQuery, type = 'FILM', order = 'NUM_VOTE', genreId, topType, page,
+      }) => {
         // Get Films by Search
         if (searchQuery) {
-          return `/v2.2/films?type=FILM&order=NUM_VOTE&keyword=${searchQuery}&page=${page}`;
+          return `/v2.2/films?type=${type}&order=${order}&keyword=${searchQuery}&page=${page}`;
         }
 
         // Get Films by Genre
         if (genreId) {
-          return `/v2.2/films?type=FILM&order=NUM_VOTE&genres=${genreId}&page=${page}`;
-        }
-
-        // Get Films by Country
-        if (countryId) {
-          return `/v2.2/films?type=FILM&order=NUM_VOTE&countries=${genreId}&page=${page}`;
+          return `/v2.2/films?type=${type}&order=${order}&genres=${genreId}&page=${page}`;
         }
 
         // Get Tops
@@ -45,7 +41,7 @@ export const kinopoiskApi = createApi({
         }
 
         // Get popular films by default
-        return `/v2.2/films?type=FILM&order=NUM_VOTE&page=${page}`;
+        return `/v2.2/films?type=${type}&order=${order}&page=${page}`;
       },
       transformResponse: (response) => ({
         totalPages: response.totalPages ? response.totalPages : response.pagesCount,
@@ -77,7 +73,7 @@ export const kinopoiskApi = createApi({
 });
 
 export const {
-  useGetGenresAndCountriesQuery,
+  useGetGenresQuery,
   useGetFilmsQuery,
   useGetFilmQuery,
   useGetRecommendationsQuery,

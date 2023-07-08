@@ -5,7 +5,7 @@ import { useTheme } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import useStyles from './styles';
-import { useGetGenresAndCountriesQuery } from '../../services/kinopoiskApi';
+import { useGetGenresQuery } from '../../services/kinopoiskApi';
 import { selectGenre, selectTopType } from '../../features/currentGenre';
 import genreIcons from '../../assets/genres';
 
@@ -22,7 +22,7 @@ function Sidebar({ setMobileOpen }) {
   const theme = useTheme();
   // const classes = useStyles();
   const dispatch = useDispatch();
-  const { data, isFetching } = useGetGenresAndCountriesQuery();
+  const { data, isFetching } = useGetGenresQuery();
   const { genreId } = useSelector((state) => state.currentGenre);
 
   useEffect(() => {

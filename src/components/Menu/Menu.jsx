@@ -16,13 +16,13 @@ import FortIcon from '@mui/icons-material/Fort';
 
 const menuList = {
   top: [
-    { title: '250 лучших', icon: 'StarsIcon' },
-    { title: '100 популярных', icon: 'LocalActivityIcon' },
+    { title: '250 лучших', icon: 'StarsIcon', value: 'TOP_250_BEST_FILMS' },
+    { title: '100 популярных', icon: 'LocalActivityIcon', value: 'TOP_100_POPULAR_FILMS' },
   ],
   type: [
-    { title: 'Фильмы', icon: 'LocalMoviesIcon' },
-    { title: 'Сериалы', icon: 'ReorderIcon' },
-    { title: 'Мультики', icon: 'FortIcon' },
+    { title: 'Фильмы', icon: 'LocalMoviesIcon', value: 'FILM' },
+    { title: 'Сериалы', icon: 'ReorderIcon', value: 'TV_SERIALS' },
+    { title: 'Мультфильмы', icon: 'FortIcon', value: 'FILM' },
   ],
 };
 
