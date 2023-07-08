@@ -16,13 +16,8 @@ function App() {
     <>
       <CssBaseline />
       <Navbar />
-      <main style={{ flexGrow: 1,
-        padding: '6em 2em 2em' }}
-      >
-        <div style={{
-          height: '70px',
-        }}
-        />
+      <main>
+        <div style={{ height: '70px' }} />
         <Routes>
           <Route exact path="/" element={<Movies />} />
           {/* <Route exact path="/approved" element={<Movies />} /> */}
