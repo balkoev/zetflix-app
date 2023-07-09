@@ -13,58 +13,36 @@ export const kinopoiskApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // Get Genres
     getGenres: builder.query({
       query: () => '/v2.2/films/filters',
       transformResponse: (response) => ({
+        ...response,
         genres: response.genres.filter(({ genre }) => !excludeGenres.includes(genre)),
       }),
     }),
 
     getFilms: builder.query({
       query: ({
-        searchQuery, type = 'FILM', order = 'NUM_VOTE', genreId, topType, page,
-      }) => {
-        // Get Films by Search
-        if (searchQuery) {
-          return `/v2.2/films?type=${type}&order=${order}&keyword=${searchQuery}&page=${page}`;
-        }
-
-        // Get Films by Genre
-        if (genreId) {
-          return `/v2.2/films?type=${type}&order=${order}&genres=${genreId}&page=${page}`;
-        }
-
-        // Get Tops
-        if (topType) {
-          return `/v2.2/films/top?type=${topType}&page=${page}`;
-        }
-
-        // Get popular films by default
-        return `/v2.2/films?type=${type}&order=${order}&page=${page}`;
-      },
+        countries, genreId, order = 'NUM_VOTE', type = 'FILM', year, keyword, page,
+      }) => `/v2.2/films?countries=${countries}&genres=${genreId}&order=${order}&type=${type}&yearFrom=${year}&yearTo${year}&keyword=${keyword}&page=${page}`,
       transformResponse: (response) => ({
         totalPages: response.totalPages ? response.totalPages : response.pagesCount,
         items: response.items ? response.items : response.films,
       }),
     }),
 
-    // Get Film
     getFilm: builder.query({
       query: (id) => `/v2.2/films/${id}`,
     }),
 
-    // Get Recommendations
     getRecommendations: builder.query({
       query: ({ filmId }) => `/v2.2/films/${filmId}/similars`,
     }),
 
-    // Get Actor
     getActor: builder.query({
       query: (actorId) => `/v1/staff/${actorId}`,
     }),
 
-    // Get Actors by Film
     getActorsByFilm: builder.query({
       query: (filmId) => `/v1/staff?filmId=${filmId}`,
     }),

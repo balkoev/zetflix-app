@@ -18,13 +18,13 @@ function Movies() {
   });
   const theme = useTheme();
 
-  if (responseFilms.isFetching || responseSerials.isFetching || responseCartoons.isFetching) {
-    return (
-      <Box display="flex" justifyContent="center">
-        <CircularProgress size="4rem" />
-      </Box>
-    );
-  }
+  // if (responseFilms.isFetching || responseSerials.isFetching || responseCartoons.isFetching) {
+  //   return (
+  //     <Box display="flex" justifyContent="center">
+  //       <CircularProgress size="4rem" />
+  //     </Box>
+  //   );
+  // }
 
   const carouselDataFilms = responseFilms.data.items?.map((row) => ({
     key: row.kinopoiskId,

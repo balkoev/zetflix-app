@@ -21,7 +21,7 @@ const menuList = {
   ],
   type: [
     { title: 'Фильмы', icon: 'LocalMoviesIcon', value: 'FILM' },
-    { title: 'Сериалы', icon: 'ReorderIcon', value: 'TV_SERIALS' },
+    { title: 'Сериалы', icon: 'ReorderIcon', value: 'TV_SERIES' },
     { title: 'Мультфильмы', icon: 'FortIcon', value: 'FILM' },
   ],
 };
