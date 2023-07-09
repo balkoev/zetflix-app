@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import {
-  CircularProgress, Grid, Typography,
+  CircularProgress, Stack, Typography,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box } from '@mui/system';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import { useTheme } from '@emotion/react';
 import {
   Movie, MovieActor, Pagination, SelectMovies,
 } from '../index';
@@ -17,6 +18,7 @@ function MoviesList() {
     order, type, genreId, countries, year, keyword,
   } = useSelector((state) => state.currentQuery);
   const [page, setPage] = useState(1);
+  const theme = useTheme();
 
   const query = () => {
     if (category === 'films') {
@@ -73,13 +75,16 @@ function MoviesList() {
         </Box>
       ) : (
         <>
-          <Grid
-            container
+          <Stack
+            direction="row"
+            justifyContent="center"
+            flexWrap="wrap"
+            sx={{ [theme.breakpoints.down('lg')]: { gap: '20px' } }}
           >
-            {data.items.map((movie, i) => (
-              <Movie key={movie.kinopoiskId} movie={movie} i={i} />
+            {data.items.map((movie) => (
+              <Movie key={movie.kinopoiskId} movie={movie} />
             ))}
-          </Grid>
+          </Stack>
           <Pagination currentPage={page} setPage={setPage} totalPages={data.totalPages} />
         </>
       )}

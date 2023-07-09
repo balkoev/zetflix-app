@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   countries: '',
   genreId: '',
-  order: '',
+  order: 'NUM_VOTE',
   type: '',
   year: '',
   keyword: '',
