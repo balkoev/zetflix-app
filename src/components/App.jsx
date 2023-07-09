@@ -8,12 +8,10 @@ import Container from '@mui/material/Container';
 import {
   Movies,
   Navbar,
-  // Actors,
   MovieInfo,
   MoviesList,
   Footer,
   MoviesListTop,
-  // Profile
 } from './index';
 
 function App() {
@@ -29,10 +27,7 @@ function App() {
           <Route exact path="/popular" element={<MoviesListTop />} />
           <Route exact path="/:category" element={<MoviesList />} />
           <Route exact path="/movie/:id" element={<MovieInfo />} />
-
-          {/* <Route exact path="/approved" element={<Movies />} /> */}
           {/* <Route exact path="/actors/:id" element={<Actors />} /> */}
-          {/* <Route exact path="/profile/:id" element={<Profile />} /> */}
         </Routes>
       </main>
       <Footer />
