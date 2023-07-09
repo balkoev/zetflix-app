@@ -11,6 +11,7 @@ import {
   // Actors,
   MovieInfo,
   MoviesList,
+  Footer,
   // Profile
 } from './index';
 
@@ -31,6 +32,7 @@ function App() {
           {/* <Route exact path="/profile/:id" element={<Profile />} /> */}
         </Routes>
       </main>
+      <Footer />
     </Container>
   );
 }

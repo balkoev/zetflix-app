@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import styles from './Movies.module.css';
 
-// import useStyles from './styles';
-
 function Movie({ movie }) {
   const theme = useTheme();
 

@@ -14,3 +14,4 @@ export { default as MovieActor } from './MovieActor/MovieActor';
 export { default as Menu } from './Menu/Menu';
 export { default as MovieList } from './MovieListOLD/MovieList';
 export { default as SelectMovies } from './SelectMovies/SelectMovies';
+export { default as Footer } from './Footer/Footer';
