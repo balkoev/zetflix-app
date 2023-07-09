@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Box, CircularProgress, Link, Typography, useTheme,
+  Box, CircularProgress, Typography, useTheme, Link,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import BearCarousel, { BearSlideImage } from 'bear-react-carousel';
@@ -34,17 +34,17 @@ function Movies() {
 
   const carouselDataFilms = responseFilms.data.items?.map((row) => ({
     key: row.kinopoiskId,
-    children: <BearSlideImage className={styles.img} imageUrl={row.posterUrlPreview} />,
+    children: <Link href={`/movie/${row.kinopoiskId}`}><BearSlideImage className={styles.img} imageUrl={row.posterUrlPreview} /></Link>,
   }));
 
   const carouselDataSerial = responseSerials.data.items?.map((row) => ({
     key: row.kinopoiskId,
-    children: <BearSlideImage className={styles.img} imageUrl={row.posterUrlPreview} />,
+    children: <Link href={`/movie/${row.kinopoiskId}`}><BearSlideImage className={styles.img} imageUrl={row.posterUrlPreview} /></Link>,
   }));
 
   const carouselDataCartoons = responseCartoons.data.items?.map((row) => ({
     key: row.kinopoiskId,
-    children: <BearSlideImage className={styles.img} imageUrl={row.posterUrlPreview} />,
+    children: <Link href={`/movie/${row.kinopoiskId}`}><BearSlideImage className={styles.img} imageUrl={row.posterUrlPreview} /></Link>,
   }));
 
   if (responseFilms.error || responseSerials.error || responseCartoons.error) {
