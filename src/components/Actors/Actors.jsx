@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
+import {
+  Box, Button, CircularProgress, Grid, Typography,
+} from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
 
 // import useStyles from './styles';
 import { useGetActorQuery } from '../../services/kinopoiskApi';
-import { MovieList, Pagination } from '../index';
+import { Pagination } from '../index';
 
 function Actors() {
   // const classes = useStyles();
@@ -44,7 +46,11 @@ function Actors() {
         </Grid>
         <Grid item lg={7} xl={8} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
           <Typography variant="h2" gutterBottom>{data?.nameRu}</Typography>
-          <Typography variant="h5" gutterBottom>Born: {new Date(data?.birthday).toDateString()}</Typography>
+          <Typography variant="h5" gutterBottom>
+            Born:
+            {' '}
+            {new Date(data?.birthday).toDateString()}
+          </Typography>
           <Typography variant="body1" align="justify" paragraph>{data?.biography || 'Sorry, no biography yet...'}</Typography>
           <Box>
             <Button variant="contained" color="primary" target="_blank" href={data?.webUrl}>KINOPOISK</Button>

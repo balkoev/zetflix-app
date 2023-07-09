@@ -10,13 +10,13 @@ import { selectQuery, resetQuery } from '../../features/currentQuery';
 function SelectMovies({
   order, genreId, countries, year,
 }) {
-  const [isResetActive, setIsResetActive] = useState(!!(order || genreId || countries || year));
+  const [isResetActive, setIsResetActive] = useState(!!(genreId || countries || year));
   const responseGenres = useGetGenresQuery();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsResetActive(!!(order || genreId || countries || year));
-  }, [order, genreId, countries, year]);
+    setIsResetActive(!!(genreId || countries || year));
+  }, [genreId, countries, year]);
 
   const currentYear = new Date().getFullYear();
   const countYears = Number(currentYear.toString().slice(2, 4));
