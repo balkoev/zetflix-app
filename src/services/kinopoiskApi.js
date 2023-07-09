@@ -31,6 +31,21 @@ export const kinopoiskApi = createApi({
       }),
     }),
 
+    getFilmsTop: builder.query({
+      query: ({
+        type, page,
+      }) => `/v2.2/films/top?type=${type}&page=${page}`,
+      transformResponse: (response) => ({
+        totalPages: response.totalPages ? response.totalPages : response.pagesCount,
+        items:
+        response.items
+          ? response.items
+          : response.films.map((el) => ({
+            ...el, kinopoiskId: el.filmId, ratingKinopoisk: el.rating?.includes('%') ? parseFloat(el.rating) / 10 : el.rating,
+          })),
+      }),
+    }),
+
     getFilm: builder.query({
       query: (id) => `/v2.2/films/${id}`,
     }),
@@ -57,4 +72,5 @@ export const {
   useGetRecommendationsQuery,
   useGetActorQuery,
   useGetActorsByFilmQuery,
+  useGetFilmsTopQuery,
 } = kinopoiskApi;

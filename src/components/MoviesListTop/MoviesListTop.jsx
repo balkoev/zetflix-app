@@ -2,50 +2,21 @@ import React, { useState } from 'react';
 import {
   CircularProgress, Stack, Typography, useMediaQuery,
 } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Box } from '@mui/system';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import { useTheme } from '@emotion/react';
-import { Movie, Pagination, SelectMovies } from '../index';
-import { useGetFilmsQuery } from '../../services/kinopoiskApi';
+import { useLocation } from 'react-router-dom';
+import { Movie, Pagination } from '../index';
+import { useGetFilmsTopQuery } from '../../services/kinopoiskApi';
+import { topsList } from '../../utils/constants';
 
-function MoviesList() {
-  const { category } = useParams();
-  const {
-    order, type, genreId, countries, year, keyword,
-  } = useSelector((state) => state.currentQuery);
+function MoviesListTop() {
+  const location = useLocation();
   const [page, setPage] = useState(1);
   const theme = useTheme();
   const isMobile = useMediaQuery('(max-width:600px)');
-
-  const query = () => {
-    if (category === 'films') {
-      return {
-        type: 'FILM', order, genreId, countries, year, keyword, page,
-      };
-    }
-    if (category === 'serials') {
-      return {
-        type: 'TV_SERIES', order, genreId, countries, year, keyword, page,
-      };
-    }
-    if (category === 'cartoons') {
-      return {
-        type: 'FILM', order, genreId: 18, countries, year, keyword, page,
-      };
-    }
-    return null;
-  };
-
-  const title = () => {
-    if (category === 'films') return 'Фильмы';
-    if (category === 'serials') return 'Сериалы';
-    if (category === 'cartoons') return 'Мультфильмы';
-    return null;
-  };
-
-  const { data, isFetching, error } = useGetFilmsQuery(query());
+  const top = topsList.find((el) => el.url === location.pathname);
+  const { data, isFetching, error } = useGetFilmsTopQuery({ type: top.value, page });
 
   if (error) {
     return (
@@ -68,15 +39,8 @@ function MoviesList() {
           [theme.breakpoints.up('sm')]: { mt: 4, mb: 4 },
         }}
       >
-        {title()}
+        {location.pathname === '/best' ? 'ТОП 250 лучших' : 'ТОП 100 популярных'}
       </Typography>
-      <SelectMovies
-        order={order}
-        type={type}
-        genreId={genreId}
-        countries={countries}
-        year={year}
-      />
 
       {isFetching ? (
         <Box display="flex" justifyContent="center" mt={2} mb={2}>
@@ -101,4 +65,4 @@ function MoviesList() {
   );
 }
 
-export default MoviesList;
+export default MoviesListTop;

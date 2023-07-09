@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { Typography, Button, ButtonGroup, Grid, Box, CircularProgress, Rating } from '@mui/material';
+import {
+  Typography, Button, ButtonGroup, Grid, Box, CircularProgress, Rating,
+} from '@mui/material';
 import { Movie as MovieIcon, Language } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
-import { useGetActorsByFilmQuery, useGetFilmQuery,
-} from '../../services/kinopoiskApi';
+import { useGetActorsByFilmQuery, useGetFilmQuery } from '../../services/kinopoiskApi';
 import genreIcons from '../../assets/genres';
 import useIsIFrameLoaded from '../../hooks/useIsIFrameLoaded';
 
@@ -54,7 +55,11 @@ function MovieInfo() {
       </Grid>
       <Grid item container direction="column" lg={7}>
         <Typography variant="h3" align="center" gutterBottom>
-          {data?.nameRu ? data?.nameRu : data?.nameOriginal} ({data.year})
+          {data?.nameRu ? data?.nameRu : data?.nameOriginal}
+          {' '}
+          (
+          {data.year}
+          )
         </Typography>
         <Typography variant="h5" align="center" gutterBottom>
           {data?.tagline}
@@ -70,10 +75,15 @@ function MovieInfo() {
           <Box display="flex" align="center">
             <Rating readOnly value={data.ratingKinopoisk / 2} />
             <Typography gutterBottom variant="subtitle1" style={{ marginLeft: '10px' }}>
-              {data?.ratingKinopoisk} / 10
+              {data?.ratingKinopoisk}
+              {' '}
+              / 10
             </Typography>
           </Box>
-          <Typography gutterBottom variant="h6" align="center">{data?.filmLength}min</Typography>
+          <Typography gutterBottom variant="h6" align="center">
+            {data?.filmLength}
+            min
+          </Typography>
         </Grid>
         <Grid
           item
@@ -100,6 +110,7 @@ function MovieInfo() {
                   marginRight: '10px',
                 }}
                 height={30}
+                alt=""
               />
               <Typography color="textPrimary" variant="subtitle1">{genre}</Typography>
             </div>
@@ -109,9 +120,9 @@ function MovieInfo() {
         <Typography style={{ marginBottom: '2rem' }}>{data?.description}</Typography>
         <Typography variant="h5" gutterBottom>Top Cast</Typography>
         <Grid item container spacing={2}>
-          {actorsByFilm && actorsByFilm.data?.map((actor, i) => (
+          {actorsByFilm && actorsByFilm.data?.map((actor) => (
 
-            <Grid key={i} item xs={4} md={2} component={Link} to={`/actors/${actor.staffId}`} style={{ textDecoration: 'none' }}>
+            <Grid key={actor.staffId} item xs={4} md={2} component={Link} to={`/actors/${actor.staffId}`} style={{ textDecoration: 'none' }}>
               <img
                 style={{
                   width: '100%',
@@ -151,15 +162,23 @@ function MovieInfo() {
               <ButtonGroup size="small" variant="outlined">
                 <Button target="_blank" rel="noopener noreferrer" href={data?.webUrl} endIcon={<Language />}>Website</Button>
                 <Button target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data?.imdbId}`} endIcon={<MovieIcon />}>IMDB</Button>
-                {/* <Button onClick={() => setOpen(true)} href="#" endIcon={<Theaters />}>Trailer</Button> */}
+                {/* <Button onClick={() => setOpen(true)} href="#"
+                endIcon={<Theaters />}>Trailer</Button> */}
               </ButtonGroup>
             </Grid>
           </div>
         </Grid>
       </Grid>
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+      <div style={{
+        display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center',
+      }}
+      >
         <h1>Смотреть онлайн</h1>
-        <p>Is ready: {String(isReady)}</p>
+        <p>
+          Is ready:
+          {' '}
+          {String(isReady)}
+        </p>
         <div ref={iframeRef} style={{ width: '600px' }} id="yohoho" data-kinopoisk={id} />
       </div>
     </Grid>

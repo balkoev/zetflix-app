@@ -1,5 +1,5 @@
 import {
-  Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, Typography,
+  Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';

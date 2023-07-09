@@ -4,18 +4,14 @@ import {
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
-
-// import useStyles from './styles';
 import { useGetActorQuery } from '../../services/kinopoiskApi';
-import { Pagination } from '../index';
+import { MoviesList, Pagination } from '../index';
 
 function Actors() {
-  // const classes = useStyles();
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, isFetching, error } = useGetActorQuery(id);
-  // const { data: movies } = useGetMoviesByActorIdQuery({ id, page });
 
   if (isFetching) {
     return (
@@ -60,7 +56,7 @@ function Actors() {
       </Grid>
       <Box margin="2rem 0">
         <Typography variant="h2" gutterBottom align="center">Фильмы</Typography>
-        {data?.films && <MovieList movies={{ items: data.films }} numberOfMovies={12} />}
+        {data?.films && <MoviesList movies={{ items: data.films }} numberOfMovies={12} />}
         <Pagination currentPage={page} setPage={setPage} totalPages={data.films?.total_pages} />
       </Box>
     </>

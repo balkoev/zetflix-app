@@ -6,7 +6,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Divider, IconButton, useTheme } from '@mui/material';
+import {
+  Divider, IconButton, Link, useTheme,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarsIcon from '@mui/icons-material/Stars';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
@@ -16,17 +18,27 @@ import FortIcon from '@mui/icons-material/Fort';
 
 const menuList = {
   top: [
-    { title: '250 лучших', icon: 'StarsIcon', value: 'TOP_250_BEST_FILMS' },
-    { title: '100 популярных', icon: 'LocalActivityIcon', value: 'TOP_100_POPULAR_FILMS' },
+    {
+      title: '250 лучших', icon: 'StarsIcon', value: 'TOP_250_BEST_FILMS', url: '/best',
+    },
+    {
+      title: '100 популярных', icon: 'LocalActivityIcon', value: 'TOP_100_POPULAR_FILMS', url: '/popular',
+    },
   ],
   type: [
-    { title: 'Фильмы', icon: 'LocalMoviesIcon', value: 'FILM' },
-    { title: 'Сериалы', icon: 'ReorderIcon', value: 'TV_SERIES' },
-    { title: 'Мультфильмы', icon: 'FortIcon', value: 'FILM' },
+    {
+      title: 'Фильмы', icon: 'LocalMoviesIcon', value: 'FILM', url: '/films',
+    },
+    {
+      title: 'Сериалы', icon: 'ReorderIcon', value: 'TV_SERIES', url: '/serials',
+    },
+    {
+      title: 'Мультфильмы', icon: 'FortIcon', value: 'FILM', url: '/cartoons',
+    },
   ],
 };
 
-export default function TemporaryDrawer() {
+export default function Menu() {
   const [isOpenMenu, setIsOpenMenu] = React.useState(false);
   const theme = useTheme();
 
@@ -54,28 +66,32 @@ export default function TemporaryDrawer() {
         >
           <List>
             {menuList.top.map((item) => (
-              <ListItem key={item.title} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {item.icon === 'StarsIcon' && <StarsIcon />}
-                    {item.icon === 'LocalActivityIcon' && <LocalActivityIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={item.title} />
-                </ListItemButton>
-              </ListItem>
+              <Link key={item.title} underline="none" href={item.url} color="inherit">
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {item.icon === 'StarsIcon' && <StarsIcon />}
+                      {item.icon === 'LocalActivityIcon' && <LocalActivityIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={item.title} />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
             ))}
             <Divider />
             {menuList.type.map((item) => (
-              <ListItem key={item.title} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {item.icon === 'LocalMoviesIcon' && <LocalMoviesIcon />}
-                    {item.icon === 'ReorderIcon' && <ReorderIcon />}
-                    {item.icon === 'FortIcon' && <FortIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={item.title} />
-                </ListItemButton>
-              </ListItem>
+              <Link key={item.title} underline="none" href={item.url} color="inherit">
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {item.icon === 'LocalMoviesIcon' && <LocalMoviesIcon />}
+                      {item.icon === 'ReorderIcon' && <ReorderIcon />}
+                      {item.icon === 'FortIcon' && <FortIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={item.title} />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
             ))}
             <Divider />
           </List>

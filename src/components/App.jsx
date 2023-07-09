@@ -12,6 +12,7 @@ import {
   MovieInfo,
   MoviesList,
   Footer,
+  MoviesListTop,
   // Profile
 } from './index';
 
@@ -24,10 +25,12 @@ function App() {
         <div style={{ height: '64px' }} />
         <Routes>
           <Route exact path="/" element={<Movies />} />
+          <Route exact path="/best" element={<MoviesListTop />} />
+          <Route exact path="/popular" element={<MoviesListTop />} />
           <Route exact path="/:category" element={<MoviesList />} />
+          <Route exact path="/movie/:id" element={<MovieInfo />} />
 
           {/* <Route exact path="/approved" element={<Movies />} /> */}
-          <Route exact path="/movie/:id" element={<MovieInfo />} />
           {/* <Route exact path="/actors/:id" element={<Actors />} /> */}
           {/* <Route exact path="/profile/:id" element={<Profile />} /> */}
         </Routes>
