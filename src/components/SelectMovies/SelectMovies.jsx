@@ -4,6 +4,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from '@emotion/react';
 import { useGetGenresQuery } from '../../services/kinopoiskApi';
 import { selectQuery, resetQuery } from '../../features/currentQuery';
 
@@ -13,6 +14,7 @@ function SelectMovies({
   const [isResetActive, setIsResetActive] = useState(!!(genreId || countries || year));
   const responseGenres = useGetGenresQuery();
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   useEffect(() => {
     setIsResetActive(!!(genreId || countries || year));
@@ -41,7 +43,20 @@ function SelectMovies({
   }
 
   return (
-    <Stack direction="row" spacing={2} mt={2} mb={2}>
+    <Stack
+      sx={{
+        [theme.breakpoints.down('sm')]: {
+          flexDirection: 'column',
+          gap: 1,
+        },
+        [theme.breakpoints.up('sm')]: {
+          flexDirection: 'row',
+          gap: 1,
+        },
+      }}
+      mt={2}
+      mb={2}
+    >
       <FormControl fullWidth size="small">
         <InputLabel>
           {selectList.order.title}

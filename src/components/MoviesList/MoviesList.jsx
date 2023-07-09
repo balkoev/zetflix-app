@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  CircularProgress, Stack, Typography,
+  CircularProgress, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { Box } from '@mui/system';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import { useTheme } from '@emotion/react';
 import {
-  Movie, MovieActor, Pagination, SelectMovies,
+  Movie, Pagination, SelectMovies,
 } from '../index';
 import { useGetFilmsQuery } from '../../services/kinopoiskApi';
 
@@ -19,6 +19,7 @@ function MoviesList() {
   } = useSelector((state) => state.currentQuery);
   const [page, setPage] = useState(1);
   const theme = useTheme();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const query = () => {
     if (category === 'films') {
@@ -60,7 +61,15 @@ function MoviesList() {
 
   return (
     <>
-      <Typography variant="h3" sx={{ mt: 6, mb: 6 }}>{title()}</Typography>
+      <Typography
+        variant={isMobile ? 'h4' : 'h3'}
+        sx={{
+          [theme.breakpoints.up('md')]: { mt: 6, mb: 6 },
+          [theme.breakpoints.up('sm')]: { mt: 4, mb: 4 },
+        }}
+      >
+        {title()}
+      </Typography>
       <SelectMovies
         order={order}
         type={type}
