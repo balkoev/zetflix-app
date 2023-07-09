@@ -1,60 +1,14 @@
 import React from 'react';
-import { Typography, Button } from '@mui/material';
-
-// import useStyles from './styles';
+import { Pagination as PaginationMUI, Stack } from '@mui/material';
 
 function Pagination({ currentPage, setPage, totalPages }) {
-  // const classes = useStyles();
-
-  const handlePrev = () => {
-    if (currentPage !== 1) { setPage((prevPage) => prevPage - 1); }
+  const handleChange = (e, value) => {
+    setPage(value);
   };
-  const handleNext = () => {
-    if (currentPage !== totalPages) { setPage((prevPage) => prevPage + 1); }
-  };
-
-  if (totalPages === 0) return null;
-
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}
-    >
-      {currentPage > 1 && (
-      <Button
-        onClick={handlePrev}
-        variant="contained"
-        sx={{
-          margin: '30px 2px',
-        }}
-        color="primary"
-        type="button"
-      >Назад
-      </Button>
-      )}
-      <Typography
-        variant="h4"
-        sx={{
-          margin: '0 20px !important',
-          color: '#000000',
-        }}
-      >{currentPage}
-      </Typography>
-      {currentPage !== totalPages && (
-      <Button
-        onClick={handleNext}
-        variant="contained"
-        sx={{
-          margin: '30px 2px',
-        }}
-        color="primary"
-        type="button"
-      >Вперед
-      </Button>
-      )}
-    </div>
+    <Stack spacing={2} alignItems="center">
+      <PaginationMUI count={totalPages} variant="outlined" shape="rounded" size="large" page={currentPage} onChange={handleChange} />
+    </Stack>
   );
 }
 
