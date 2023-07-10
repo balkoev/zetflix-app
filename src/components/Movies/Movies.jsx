@@ -85,6 +85,7 @@ function Movies() {
         Популярные
       </Link>
       <BearCarousel
+        style={{ marginTop: '16px', marginBottom: '16px' }}
         data={carouselDataPopular}
         isEnableNavButton
         enableNavButton
@@ -93,11 +94,22 @@ function Movies() {
         isEnableLoop
         isEnableAutoPlay
         autoPlayTime={5000}
+        breakpoints={{
+          375: {
+            slidesPerView: 'auto',
+            isEnableAutoPlay: false,
+          },
+          768: {
+            slidesPerView: '5',
+
+          },
+        }}
       />
       <Link href="/best" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
         Лучшие
       </Link>
       <BearCarousel
+        style={{ marginTop: '16px', marginBottom: '16px' }}
         data={carouselDataBest}
         isEnableNavButton
         enableNavButton
@@ -106,11 +118,22 @@ function Movies() {
         isEnableLoop
         isEnableAutoPlay
         autoPlayTime={6000}
+        breakpoints={{
+          375: {
+            slidesPerView: 'auto',
+            isEnableAutoPlay: false,
+          },
+          768: {
+            slidesPerView: '5',
+
+          },
+        }}
       />
       <Link href="/films" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
         Фильмы
       </Link>
       <BearCarousel
+        style={{ marginTop: '16px', marginBottom: '16px' }}
         data={carouselDataFilms}
         isEnableNavButton
         enableNavButton
@@ -119,11 +142,22 @@ function Movies() {
         isEnableLoop
         isEnableAutoPlay
         autoPlayTime={7000}
+        breakpoints={{
+          375: {
+            slidesPerView: 'auto',
+            isEnableAutoPlay: false,
+          },
+          768: {
+            slidesPerView: '5',
+
+          },
+        }}
       />
       <Link href="/serials" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
         Сериалы
       </Link>
       <BearCarousel
+        style={{ marginTop: '16px', marginBottom: '16px' }}
         data={carouselDataSerial}
         isEnableNavButton
         enableNavButton
@@ -132,11 +166,22 @@ function Movies() {
         isEnableLoop
         isEnableAutoPlay
         autoPlayTime={8000}
+        breakpoints={{
+          375: {
+            slidesPerView: 'auto',
+            isEnableAutoPlay: false,
+          },
+          768: {
+            slidesPerView: '5',
+
+          },
+        }}
       />
       <Link href="/cartoons" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
         Мультфильмы
       </Link>
       <BearCarousel
+        style={{ marginTop: '16px', marginBottom: '16px' }}
         data={carouselDataCartoons}
         isEnableNavButton
         enableNavButton
@@ -145,6 +190,16 @@ function Movies() {
         isEnableLoop
         isEnableAutoPlay
         autoPlayTime={9000}
+        breakpoints={{
+          375: {
+            slidesPerView: 'auto',
+            isEnableAutoPlay: false,
+          },
+          768: {
+            slidesPerView: '5',
+
+          },
+        }}
       />
     </Box>
   );
