@@ -23,7 +23,7 @@ function Movie({ movie }) {
           sx={{
             color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
             textOverflow: 'ellipsis',
-            width: '230px',
+            width: '200px',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             marginBottom: 0,
@@ -34,7 +34,7 @@ function Movie({ movie }) {
           {movie.nameRu ? movie.nameRu : movie.nameOriginal}
         </Typography>
       </Link>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Tooltip disableTouchListener title={`${movie.ratingKinopoisk} / 10`}>
           <div>
             <Rating readOnly value={movie.ratingKinopoisk / 2} precision={0.1} />

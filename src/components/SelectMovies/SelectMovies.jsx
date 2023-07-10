@@ -1,5 +1,6 @@
 import {
-  Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack,
+  // CircularProgress
+  Box, Button, FormControl, InputLabel, MenuItem, Select, Skeleton, Stack, useMediaQuery,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -15,6 +16,7 @@ function SelectMovies({
   const responseGenres = useGetGenresQuery();
   const dispatch = useDispatch();
   const theme = useTheme();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     setIsResetActive(!!(genreId || countries || year));
@@ -36,9 +38,30 @@ function SelectMovies({
 
   if (responseGenres.isFetching) {
     return (
-      <Box display="flex" justifyContent="center" mt={2} mb={2}>
-        <CircularProgress size="2rem" />
-      </Box>
+      // До скелетона показываем этот код
+      // <Box display="flex" justifyContent="center" mt={2} mb={2}>
+      //   <CircularProgress size="2rem" />
+      // </Box>
+      <Stack
+        sx={{
+          [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+            gap: 1,
+          },
+          [theme.breakpoints.up('sm')]: {
+            flexDirection: 'row',
+            gap: 1,
+          },
+        }}
+        mt={2}
+        mb={2}
+      >
+        <Skeleton animation="wave" variant="rounded" width={isMobile ? '100%' : '25%'} height={40} />
+        <Skeleton animation="wave" variant="rounded" width={isMobile ? '100%' : '25%'} height={40} />
+        <Skeleton animation="wave" variant="rounded" width={isMobile ? '100%' : '25%'} height={40} />
+        <Skeleton animation="wave" variant="rounded" width={isMobile ? '100%' : '25%'} height={40} />
+        <Skeleton animation="wave" variant="rounded" width={132} height={40} />
+      </Stack>
     );
   }
 

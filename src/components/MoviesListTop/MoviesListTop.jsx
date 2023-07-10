@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
-  CircularProgress, Stack, Typography, useMediaQuery,
+  // CircularProgress,
+  Skeleton, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -43,16 +44,32 @@ function MoviesListTop() {
       </Typography>
 
       {isFetching ? (
-        <Box display="flex" justifyContent="center" mt={2} mb={2}>
-          <CircularProgress size="2rem" />
-        </Box>
+        // До скелетона показываем этот код
+        // <Box display="flex" justifyContent="center" mt={2} mb={2}>
+        //   <CircularProgress size="2rem" />
+        // </Box>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          flexWrap="wrap"
+          sx={{ gap: 2 }}
+        >
+          {Array(10).fill(0).map((el, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+            <Stack key={index} spacing={1}>
+              <Skeleton animation="wave" variant="rounded" width={215} height={322} />
+              <Skeleton animation="wave" variant="text" sx={{ fontSize: '1rem' }} />
+              <Skeleton animation="wave" variant="text" sx={{ fontSize: '1rem' }} />
+            </Stack>
+          ))}
+        </Stack>
       ) : (
         <>
           <Stack
             direction="row"
             justifyContent="center"
             flexWrap="wrap"
-            sx={{ [theme.breakpoints.down('lg')]: { gap: '20px' } }}
+            sx={{ gap: 2 }}
           >
             {data.items.map((movie) => (
               <Movie key={movie.kinopoiskId} movie={movie} />

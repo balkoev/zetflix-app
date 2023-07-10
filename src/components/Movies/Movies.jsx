@@ -1,12 +1,21 @@
 import React from 'react';
 import {
-  Box, CircularProgress, Typography, useTheme, Link,
+  // CircularProgress
+  Box, Typography, useTheme, Link, Skeleton, Stack,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import BearCarousel, { BearSlideImage } from 'bear-react-carousel';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import { useGetFilmsQuery, useGetFilmsTopQuery } from '../../services/kinopoiskApi';
 import styles from './Movies.module.css';
+
+const mockArr = [
+  { title: 'Популярные', url: '/popular' },
+  { title: 'Лучшие', url: '/best' },
+  { title: 'Фильмы', url: '/films' },
+  { title: 'Сериалы', url: '/serials' },
+  { title: 'Мультфильмы', url: '/cartoons' },
+];
 
 function Movies() {
   const {
@@ -23,7 +32,6 @@ function Movies() {
   const responseCartoons = useGetFilmsQuery({
     type: 'FILM', order, genreId: '18', countries, year, keyword, page,
   });
-
   const theme = useTheme();
 
   if (responsePopular.isFetching
@@ -32,8 +40,32 @@ function Movies() {
     || responseSerials.isFetching
     || responseCartoons.isFetching) {
     return (
-      <Box display="flex" justifyContent="center" mt={2} mb={2}>
-        <CircularProgress size="4rem" />
+    // До скелетона показываем этот код
+      // <Box display="flex" justifyContent="center" mt={2} mb={2}>
+      //   <CircularProgress size="4rem" />
+      // </Box>
+      <Box mt={2} mb={2}>
+        {mockArr.map((el, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <React.Fragment key={index}>
+            <Link href={el.url} variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
+              {el.title}
+            </Link>
+            <Stack
+              direction="row"
+              justifyContent="center"
+              flexWrap="wrap"
+              sx={{ gap: 2, mt: 2, mb: 2 }}
+            >
+              <Skeleton animation="wave" variant="rounded" height="337px" width="215px" />
+              <Skeleton animation="wave" variant="rounded" height="337px" width="215px" />
+              <Skeleton animation="wave" variant="rounded" height="337px" width="215px" />
+              <Skeleton animation="wave" variant="rounded" height="337px" width="215px" />
+              <Skeleton animation="wave" variant="rounded" height="337px" width="215px" />
+
+            </Stack>
+          </React.Fragment>
+        ))}
       </Box>
     );
   }
@@ -63,6 +95,14 @@ function Movies() {
     children: <Link href={`/movie/${row.kinopoiskId}`}><BearSlideImage className={styles.img} imageUrl={row.posterUrlPreview} /></Link>,
   }));
 
+  const carouselArr = [
+    { title: 'Популярные', url: '/popular', data: carouselDataPopular },
+    { title: 'Лучшие', url: '/best', data: carouselDataBest },
+    { title: 'Фильмы', url: '/films', data: carouselDataFilms },
+    { title: 'Сериалы', url: '/serials', data: carouselDataSerial },
+    { title: 'Мультфильмы', url: '/cartoons', data: carouselDataCartoons },
+  ];
+
   if (responsePopular.error
     || responseBest.error
     || responseFilms.error
@@ -81,126 +121,34 @@ function Movies() {
 
   return (
     <Box mt={2} mb={2}>
-      <Link href="/popular" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
-        Популярные
-      </Link>
-      <BearCarousel
-        style={{ marginTop: '16px', marginBottom: '16px' }}
-        data={carouselDataPopular}
-        isEnableNavButton
-        enableNavButton
-        slidesPerView={5}
-        slidesPerGroup={1}
-        isEnableLoop
-        isEnableAutoPlay
-        autoPlayTime={5000}
-        breakpoints={{
-          375: {
-            slidesPerView: 'auto',
-            isEnableAutoPlay: false,
-          },
-          768: {
-            slidesPerView: '5',
+      {carouselArr.map((el) => (
+        <React.Fragment key={el.title}>
+          <Link href={el.url} variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
+            {el.title}
+          </Link>
+          <BearCarousel
+            style={{ marginTop: '1rem', marginBottom: '1rem' }}
+            data={el.data}
+            isEnableNavButton
+            enableNavButton
+            slidesPerView={5}
+            slidesPerGroup={1}
+            isEnableLoop
+            isEnableAutoPlay
+            autoPlayTime={5000}
+            breakpoints={{
+              375: {
+                slidesPerView: 'auto',
+                isEnableAutoPlay: false,
+              },
+              768: {
+                slidesPerView: '5',
 
-          },
-        }}
-      />
-      <Link href="/best" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
-        Лучшие
-      </Link>
-      <BearCarousel
-        style={{ marginTop: '16px', marginBottom: '16px' }}
-        data={carouselDataBest}
-        isEnableNavButton
-        enableNavButton
-        slidesPerView={5}
-        slidesPerGroup={1}
-        isEnableLoop
-        isEnableAutoPlay
-        autoPlayTime={6000}
-        breakpoints={{
-          375: {
-            slidesPerView: 'auto',
-            isEnableAutoPlay: false,
-          },
-          768: {
-            slidesPerView: '5',
-
-          },
-        }}
-      />
-      <Link href="/films" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
-        Фильмы
-      </Link>
-      <BearCarousel
-        style={{ marginTop: '16px', marginBottom: '16px' }}
-        data={carouselDataFilms}
-        isEnableNavButton
-        enableNavButton
-        slidesPerView={5}
-        slidesPerGroup={1}
-        isEnableLoop
-        isEnableAutoPlay
-        autoPlayTime={7000}
-        breakpoints={{
-          375: {
-            slidesPerView: 'auto',
-            isEnableAutoPlay: false,
-          },
-          768: {
-            slidesPerView: '5',
-
-          },
-        }}
-      />
-      <Link href="/serials" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
-        Сериалы
-      </Link>
-      <BearCarousel
-        style={{ marginTop: '16px', marginBottom: '16px' }}
-        data={carouselDataSerial}
-        isEnableNavButton
-        enableNavButton
-        slidesPerView={5}
-        slidesPerGroup={1}
-        isEnableLoop
-        isEnableAutoPlay
-        autoPlayTime={8000}
-        breakpoints={{
-          375: {
-            slidesPerView: 'auto',
-            isEnableAutoPlay: false,
-          },
-          768: {
-            slidesPerView: '5',
-
-          },
-        }}
-      />
-      <Link href="/cartoons" variant="h4" underline="hover" color={theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main}>
-        Мультфильмы
-      </Link>
-      <BearCarousel
-        style={{ marginTop: '16px', marginBottom: '16px' }}
-        data={carouselDataCartoons}
-        isEnableNavButton
-        enableNavButton
-        slidesPerView={5}
-        slidesPerGroup={1}
-        isEnableLoop
-        isEnableAutoPlay
-        autoPlayTime={9000}
-        breakpoints={{
-          375: {
-            slidesPerView: 'auto',
-            isEnableAutoPlay: false,
-          },
-          768: {
-            slidesPerView: '5',
-
-          },
-        }}
-      />
+              },
+            }}
+          />
+        </React.Fragment>
+      ))}
     </Box>
   );
 }

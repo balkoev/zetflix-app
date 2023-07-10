@@ -1,6 +1,6 @@
 .img {
     transition: transform 0.5s;
-    padding: 2px;
+    padding: 8px;
 }
 
 .img:hover {
