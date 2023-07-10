@@ -12,3 +12,4 @@ export { default as Menu } from './Menu/Menu';
 export { default as SelectMovies } from './SelectMovies/SelectMovies';
 export { default as Footer } from './Footer/Footer';
 export { default as MoviesListTop } from './MoviesListTop/MoviesListTop';
+export { default as NotFound } from './NotFound/NotFound';

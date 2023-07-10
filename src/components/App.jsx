@@ -12,6 +12,7 @@ import {
   MoviesList,
   Footer,
   MoviesListTop,
+  NotFound,
 } from './index';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <main>
         <div style={{ height: '64px' }} />
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route exact path="/" element={<Movies />} />
           <Route exact path="/best" element={<MoviesListTop />} />
           <Route exact path="/popular" element={<MoviesListTop />} />
